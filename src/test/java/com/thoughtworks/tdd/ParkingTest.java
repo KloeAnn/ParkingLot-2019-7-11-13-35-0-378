@@ -83,5 +83,21 @@ class ParkingTest {
         assertEquals(exception.getMessage(),"The ticket has been used.");
     }
 
+    @Test
+    public void should_not_return_ticket_if_car_is_null() throws Exception {
+        //given
+        Car car=null;
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+        //then
+        Executable executable=()->{
+            parkingBoy.park(car);
+        };
+        Exception exception=assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"The car is null.");
+    }
+
+
+
 
 }

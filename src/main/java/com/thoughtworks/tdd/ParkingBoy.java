@@ -14,7 +14,9 @@ public class ParkingBoy {
         usedTickets=new ArrayList<Ticket>();
     }
 
-    public Ticket park(Car car){
+    public Ticket park(Car car)throws Exception {
+        if(car==null)
+            throw new Exception("The car is null.");
         return  parkingCarLot.addCar(car);
     }
 
