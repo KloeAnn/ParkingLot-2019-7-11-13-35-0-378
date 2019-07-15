@@ -1,12 +1,14 @@
 package com.thoughtworks.tdd;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParkingTest {
     @Test
-    public void should_fetch_car_when_park_car_and_get_it_back(){
+    public void should_fetch_car_when_park_car_and_get_it_back()throws Exception {
         //given
         Car car=new Car();
         Ticket ticket=new Ticket();
@@ -19,7 +21,7 @@ class ParkingTest {
     }
 
     @Test
-    public void should_fetch_correspond_cars_when_park_multiple_cars_and_get_them_back() {
+    public void should_fetch_correspond_cars_when_park_multiple_cars_and_get_them_back()throws Exception {
         // given
         Car firstCar = new Car();
         Car secondCar = new Car();
@@ -35,4 +37,19 @@ class ParkingTest {
         assertSame(firstCar, actualFirstCar);
         assertSame(secondCar, actualSecondCar);
     }
+
+    @Test
+    public void should_not_fetch_car_when_ticket_is_wrong(){
+        //given
+        Ticket ticket=new Ticket();
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+        Executable executable=()->{
+            parkingBoy.fetchCar(ticket);
+        };
+        //then
+        Exception exception= assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"The ticket is wrong.");
+    }
+
 }
