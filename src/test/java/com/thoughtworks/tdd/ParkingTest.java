@@ -63,7 +63,7 @@ class ParkingTest {
         };
         //then
         Exception exception=assertThrows(Exception.class,executable);
-        assertEquals(exception.getMessage(),"You can't fetch a car without a ticket.");
+        assertEquals(exception.getMessage(),"Please provide your parking ticket.");
 
     }
 
