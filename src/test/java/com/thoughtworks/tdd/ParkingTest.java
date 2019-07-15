@@ -67,5 +67,21 @@ class ParkingTest {
 
     }
 
+    @Test
+    public void should_not_fetch_car_if_ticket_has_been_used() throws Exception {
+        //given
+        Car car=new Car();
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+        Ticket ticket=parkingBoy.park(car);
+        parkingBoy.fetchCar(ticket);
+        //then
+        Executable executable=()->{
+            parkingBoy.fetchCar(ticket);
+        };
+        Exception exception=assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"The ticket has been used.");
+    }
+
 
 }
