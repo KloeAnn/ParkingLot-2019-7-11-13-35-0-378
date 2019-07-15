@@ -49,7 +49,7 @@ class ParkingTest {
         };
         //then
         Exception exception= assertThrows(Exception.class,executable);
-        assertEquals(exception.getMessage(),"The ticket is wrong.");
+        assertEquals(exception.getMessage(),"Unrecognized parking ticket.");
     }
 
     @Test
@@ -80,7 +80,7 @@ class ParkingTest {
             parkingBoy.fetchCar(ticket);
         };
         Exception exception=assertThrows(Exception.class,executable);
-        assertEquals(exception.getMessage(),"The ticket has been used.");
+        assertEquals(exception.getMessage(),"Unrecognized parking ticket.");
     }
 
     @Test

@@ -21,7 +21,7 @@ public class ParkingCarLot {
             throw new Exception("You can't fetch a car without a ticket.");
         Car car=ticketCarMap.get(ticket);
         if(car==null)
-            throw new Exception("The ticket is wrong.");
+            throw new Exception("Unrecognized parking ticket.");
 
         return car;
     }

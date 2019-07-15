@@ -22,7 +22,7 @@ public class ParkingBoy {
 
     public Car fetchCar(Ticket ticket)throws Exception {
         if(usedTickets.stream().filter(i->i==ticket).collect(Collectors.toList()).size()!=0)
-            throw new Exception("The ticket has been used.");
+            throw new Exception("Unrecognized parking ticket.");
         else
             usedTickets.add(ticket);
         return parkingCarLot.getCar(ticket);
