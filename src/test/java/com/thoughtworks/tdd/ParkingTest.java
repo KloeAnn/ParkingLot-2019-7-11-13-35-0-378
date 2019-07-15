@@ -52,4 +52,20 @@ class ParkingTest {
         assertEquals(exception.getMessage(),"The ticket is wrong.");
     }
 
+    @Test
+    public void should_not_fetch_car_without_ticket(){
+        //given
+        Ticket ticket=null;
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+        Executable executable=()->{
+          parkingBoy.fetchCar(ticket);
+        };
+        //then
+        Exception exception=assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"You can't fetch a car without a ticket.");
+
+    }
+
+
 }

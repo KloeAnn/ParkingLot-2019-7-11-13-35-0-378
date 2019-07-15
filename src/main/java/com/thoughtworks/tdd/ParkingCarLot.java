@@ -17,9 +17,12 @@ public class ParkingCarLot {
 
 
     public Car getCar(Ticket ticket) throws Exception{
+        if(ticket==null)
+            throw new Exception("You can't fetch a car without a ticket.");
         Car car=ticketCarMap.get(ticket);
         if(car==null)
             throw new Exception("The ticket is wrong.");
+
         return car;
     }
 }
