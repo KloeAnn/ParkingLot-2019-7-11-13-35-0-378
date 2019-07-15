@@ -11,7 +11,6 @@ class ParkingTest {
     public void should_fetch_car_when_park_car_and_get_it_back()throws Exception {
         //given
         Car car=new Car();
-        Ticket ticket=new Ticket();
         ParkingBoy parkingBoy=new ParkingBoy();
         //when
         Ticket actualTicket=parkingBoy.park(car);
@@ -119,14 +118,16 @@ class ParkingTest {
         //given
         Car car=new Car();
         ParkingBoy parkingBoy=new ParkingBoy();
+        ParkingCarLot parkingCarLot2=new ParkingCarLot();
+        parkingBoy.addParkingLot(parkingCarLot2);
         //when
-
+        for(int i=0;i<10;i++){
+            parkingBoy.park(new Car());
+        }
         //then
-        Executable executable=()->{
-            parkingBoy.park(car);
-        };
-        Exception exception=assertThrows(Exception.class,executable);
-        assertEquals(exception.getMessage(),"Not enough position.");
+        Ticket ticket=parkingBoy.park(car);
+        boolean isCarInParkingLot2=parkingCarLot2.isTicketIncluded(ticket);
+        assertTrue(isCarInParkingLot2);
     }
 
 

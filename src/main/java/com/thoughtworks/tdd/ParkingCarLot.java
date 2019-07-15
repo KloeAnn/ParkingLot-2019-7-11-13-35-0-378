@@ -2,7 +2,8 @@ package com.thoughtworks.tdd;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingCarLot {
+    public class ParkingCarLot {
+
     private Map<Ticket, Car> ticketCarMap;
     private int capacity;
 
@@ -13,17 +14,21 @@ public class ParkingCarLot {
                 return false;
     }
 
-    public boolean isTicketIncluded(Ticket ticket){
-        if(ticketCarMap.get(ticket) instanceof Car)
-            return true;
-        else
-            return  false;
-    }
+
 
     public ParkingCarLot() {
         ticketCarMap = new HashMap<>();
         capacity=10;
     }
+
+        public boolean isTicketIncluded(Ticket ticket){
+            Car car=ticketCarMap.get(ticket);
+            if(car==null)
+                return false;
+            else
+                return true;
+
+        }
 
     public Ticket addCar(Car car)throws Exception{
         if(ticketCarMap.size()==capacity)
