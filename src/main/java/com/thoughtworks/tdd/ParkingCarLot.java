@@ -4,12 +4,16 @@ import java.util.Map;
 
 public class ParkingCarLot {
     private Map<Ticket, Car> ticketCarMap;
+    private int capacity;
 
     public ParkingCarLot() {
         ticketCarMap = new HashMap<>();
+        capacity=10;
     }
 
-    public Ticket addCar(Car car) {
+    public Ticket addCar(Car car)throws Exception{
+        if(ticketCarMap.size()==capacity)
+            throw new Exception("Not enough position.");
         Ticket ticket = new Ticket();
         ticketCarMap.put(ticket, car);
         return ticket;

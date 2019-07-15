@@ -97,6 +97,23 @@ class ParkingTest {
         assertEquals(exception.getMessage(),"The car is null.");
     }
 
+    @Test
+    public void should_not_return_ticket_if_parking_plot_is_full() throws Exception {
+        //given
+        Car car=new Car();
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+        for(int i=0;i<10;i++){
+            parkingBoy.park(new Car());
+        }
+        //then
+        Executable executable=()->{
+            parkingBoy.park(car);
+        };
+        Exception exception=assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"Not enough position.");
+    }
+
 
 
 
