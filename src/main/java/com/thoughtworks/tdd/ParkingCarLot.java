@@ -6,6 +6,20 @@ public class ParkingCarLot {
     private Map<Ticket, Car> ticketCarMap;
     private int capacity;
 
+    public boolean isParkingLotFull(){
+        if(ticketCarMap.size()==capacity)
+                return true;
+        else
+                return false;
+    }
+
+    public boolean isTicketIncluded(Ticket ticket){
+        if(ticketCarMap.get(ticket) instanceof Car)
+            return true;
+        else
+            return  false;
+    }
+
     public ParkingCarLot() {
         ticketCarMap = new HashMap<>();
         capacity=10;

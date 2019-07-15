@@ -6,18 +6,22 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class ParkingBoy {
-    private ParkingCarLot parkingCarLot;
+    private List<ParkingCarLot> parkingCarLot;
     private List<Ticket> usedTickets;
 
     ParkingBoy(){
-        parkingCarLot=new ParkingCarLot();
+        parkingCarLot=new ArrayList<ParkingCarLot>();
         usedTickets=new ArrayList<Ticket>();
     }
 
     public Ticket park(Car car)throws Exception {
         if(car==null)
             throw new Exception("The car is null.");
-        return  parkingCarLot.addCar(car);
+        for(int i=0;i<parkingCarLot.size();i++){
+            if(!parkingCarLot.get(i).isParkingLotFull())
+                return parkingCarLot.get(i).addCar(car);
+        }
+        throw new Exception();
     }
 
     public Car fetchCar(Ticket ticket)throws Exception {
@@ -25,6 +29,10 @@ public class ParkingBoy {
             throw new Exception("Unrecognized parking ticket.");
         else
             usedTickets.add(ticket);
-        return parkingCarLot.getCar(ticket);
+        for(int i=0;i<parkingCarLot.size();i++){
+            if(parkingCarLot.get(i).isTicketIncluded(ticket))
+                return parkingCarLot.get(i).getCar(ticket);
+        }
+        throw  new Exception();
     }
 }

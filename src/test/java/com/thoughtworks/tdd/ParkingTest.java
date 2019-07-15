@@ -114,6 +114,20 @@ class ParkingTest {
         assertEquals(exception.getMessage(),"Not enough position.");
     }
 
+    @Test
+    public void should_park_car_in_second_parking_plot_if_first_is_full() throws Exception {
+        //given
+        Car car=new Car();
+        ParkingBoy parkingBoy=new ParkingBoy();
+        //when
+
+        //then
+        Executable executable=()->{
+            parkingBoy.park(car);
+        };
+        Exception exception=assertThrows(Exception.class,executable);
+        assertEquals(exception.getMessage(),"Not enough position.");
+    }
 
 
 
