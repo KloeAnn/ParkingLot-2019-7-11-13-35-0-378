@@ -44,7 +44,7 @@ public class ParkingBoy {
     public Ticket park(Car car)throws Exception {
         if(car==null)
             throw new Exception("The car is null.");
-        if(getParkingCarLot().stream().filter(i->i.isParkingLotFull()).collect(Collectors.toList()).size()==0)
+        if(getParkingCarLot().stream().filter(i->!i.isParkingLotFull()).collect(Collectors.toList()).size()==0)
             throw new Exception("Not enough position.");
         for(int i=0;i<getParkingCarLot().size();i++){
             if(!getParkingCarLot().get(i).isParkingLotFull())
