@@ -1,20 +1,19 @@
 package com.thoughtworks.tdd;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ParkingTest {
+class SmartParkingBoyTest {
     @Test
     public void should_fetch_car_when_park_car_and_get_it_back()throws Exception {
         //given
         Car car=new Car();
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
-        Ticket actualTicket=parkingBoy.park(car);
-        Car actualCar=parkingBoy.fetchCar(actualTicket);
+        Ticket actualTicket=smartParkingBoy.park(car);
+        Car actualCar=smartParkingBoy.fetchCar(actualTicket);
         //then
         assertSame(car,actualCar);
     }
@@ -24,13 +23,13 @@ class ParkingTest {
         // given
         Car firstCar = new Car();
         Car secondCar = new Car();
-        ParkingBoy parkingBoy = new ParkingBoy();
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy();
 
         // when
-        Ticket firstTicket = parkingBoy.park(firstCar);
-        Ticket secondTicket = parkingBoy.park(secondCar);
-        Car actualFirstCar = parkingBoy.fetchCar(firstTicket);
-        Car actualSecondCar = parkingBoy.fetchCar(secondTicket);
+        Ticket firstTicket = smartParkingBoy.park(firstCar);
+        Ticket secondTicket = smartParkingBoy.park(secondCar);
+        Car actualFirstCar = smartParkingBoy.fetchCar(firstTicket);
+        Car actualSecondCar = smartParkingBoy.fetchCar(secondTicket);
 
         // then
         assertSame(firstCar, actualFirstCar);
@@ -41,10 +40,10 @@ class ParkingTest {
     public void should_not_fetch_car_when_ticket_is_wrong(){
         //given
         Ticket ticket=new Ticket();
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
         Executable executable=()->{
-            parkingBoy.fetchCar(ticket);
+            smartParkingBoy.fetchCar(ticket);
         };
         //then
         Exception exception= assertThrows(Exception.class,executable);
@@ -55,10 +54,10 @@ class ParkingTest {
     public void should_not_fetch_car_without_ticket(){
         //given
         Ticket ticket=null;
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
         Executable executable=()->{
-          parkingBoy.fetchCar(ticket);
+            smartParkingBoy.fetchCar(ticket);
         };
         //then
         Exception exception=assertThrows(Exception.class,executable);
@@ -70,13 +69,13 @@ class ParkingTest {
     public void should_not_fetch_car_if_ticket_has_been_used() throws Exception {
         //given
         Car car=new Car();
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
-        Ticket ticket=parkingBoy.park(car);
-        parkingBoy.fetchCar(ticket);
+        Ticket ticket=smartParkingBoy.park(car);
+        smartParkingBoy.fetchCar(ticket);
         //then
         Executable executable=()->{
-            parkingBoy.fetchCar(ticket);
+            smartParkingBoy.fetchCar(ticket);
         };
         Exception exception=assertThrows(Exception.class,executable);
         assertEquals(exception.getMessage(),"Unrecognized parking ticket.");
@@ -86,11 +85,11 @@ class ParkingTest {
     public void should_not_return_ticket_if_car_is_null() throws Exception {
         //given
         Car car=null;
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
         //then
         Executable executable=()->{
-            parkingBoy.park(car);
+            smartParkingBoy.park(car);
         };
         Exception exception=assertThrows(Exception.class,executable);
         assertEquals(exception.getMessage(),"The car is null.");
@@ -100,33 +99,30 @@ class ParkingTest {
     public void should_not_return_ticket_if_parking_plot_is_full() throws Exception {
         //given
         Car car=new Car();
-        ParkingBoy parkingBoy=new ParkingBoy();
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
         //when
         for(int i=0;i<10;i++){
-            parkingBoy.park(new Car());
+            smartParkingBoy.park(new Car());
         }
         //then
         Executable executable=()->{
-            parkingBoy.park(car);
+            smartParkingBoy.park(car);
         };
         Exception exception=assertThrows(Exception.class,executable);
         assertEquals(exception.getMessage(),"Not enough position.");
     }
 
     @Test
-    public void should_park_car_in_second_parking_plot_if_first_is_full() throws Exception {
+    public void should_park_car_in_which_contains_more_empty_positions() throws Exception {
         //given
         Car car=new Car();
-        ParkingBoy parkingBoy=new ParkingBoy();
-        ParkingCarLot parkingCarLot2=new ParkingCarLot();
-        parkingBoy.addParkingLot(parkingCarLot2);
+        SmartParkingBoy smartParkingBoy=new SmartParkingBoy();
+        ParkingCarLot parkingCarLot2=new ParkingCarLot(12);
+        smartParkingBoy.addParkingLot(parkingCarLot2);
         //when
-        for(int i=0;i<10;i++){
-            parkingBoy.park(new Car());
-        }
-        //then
-        Ticket ticket=parkingBoy.park(car);
+        Ticket ticket=smartParkingBoy.park(car);
         boolean isCarInParkingLot2=parkingCarLot2.isTicketIncluded(ticket);
+        //then
         assertTrue(isCarInParkingLot2);
     }
 }

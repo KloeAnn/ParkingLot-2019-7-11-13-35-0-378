@@ -2,6 +2,7 @@ package com.thoughtworks.tdd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ParkingBoy {
@@ -20,14 +21,34 @@ public class ParkingBoy {
         parkingCarLot.add(parkingLot);
     }
 
+    public List<ParkingCarLot> getParkingCarLot(){
+        return  parkingCarLot;
+    }
+
+    public List<Ticket> getUsedTickets(){
+        return usedTickets;
+    }
+
+    public void addUsedTickets(Ticket ticket){
+        usedTickets.add(ticket);
+    }
+
+    public Ticket parkCarInParkingLot(int i,Car car)throws Exception{
+        return parkingCarLot.get(i).addCar(car);
+    }
+
+    public Car fetchCarInParkingLot(int i,Ticket ticket)throws Exception{
+        return parkingCarLot.get(i).getCar(ticket);
+    }
+
     public Ticket park(Car car)throws Exception {
         if(car==null)
             throw new Exception("The car is null.");
-        if(parkingCarLot.stream().filter(i->!i.isParkingLotFull()).collect(Collectors.toList()).size()==0)
+        if(getParkingCarLot().stream().filter(i->i.isParkingLotFull()).collect(Collectors.toList()).size()==0)
             throw new Exception("Not enough position.");
-        for(int i=0;i<parkingCarLot.size();i++){
-            if(!parkingCarLot.get(i).isParkingLotFull())
-                return parkingCarLot.get(i).addCar(car);
+        for(int i=0;i<getParkingCarLot().size();i++){
+            if(!getParkingCarLot().get(i).isParkingLotFull())
+                return parkCarInParkingLot(i,car);
         }
         throw new Exception();
     }
@@ -37,12 +58,12 @@ public class ParkingBoy {
         if(ticket==null)
             throw new Exception("Please provide your parking ticket.");
 
-        if(usedTickets.stream().filter(i->i==ticket).collect(Collectors.toList()).size()!=0)
+        if(getUsedTickets().stream().filter(i->i==ticket).collect(Collectors.toList()).size()!=0)
             throw new Exception("Unrecognized parking ticket.");
 
-        for(int i=0;i<parkingCarLot.size();i++){
-            if(parkingCarLot.get(i).isTicketIncluded(ticket)){
-                usedTickets.add(ticket);
+        for(int i=0;i<getParkingCarLot().size();i++){
+            if(getParkingCarLot().get(i).isTicketIncluded(ticket)){
+                addUsedTickets(ticket);
                 return parkingCarLot.get(i).getCar(ticket);
             }
             else {

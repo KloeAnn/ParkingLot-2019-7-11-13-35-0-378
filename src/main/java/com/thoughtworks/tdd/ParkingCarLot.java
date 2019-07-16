@@ -8,11 +8,11 @@ import java.util.Map;
     private int capacity;
 
     public boolean isParkingLotFull(){
-        if(ticketCarMap.size()==capacity)
+            if(ticketCarMap.size()==capacity)
                 return true;
-        else
+            else
                 return false;
-    }
+        }
 
 
 
@@ -20,6 +20,16 @@ import java.util.Map;
         ticketCarMap = new HashMap<>();
         capacity=10;
     }
+        public ParkingCarLot(int i) {
+            ticketCarMap = new HashMap<>();
+            capacity=i;
+        }
+
+        public int getParkingLotEmptyPstions(){
+            return capacity-ticketCarMap.size();
+        }
+
+
 
         public boolean isTicketIncluded(Ticket ticket){
             Car car=ticketCarMap.get(ticket);
