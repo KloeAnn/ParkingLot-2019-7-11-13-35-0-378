@@ -25,8 +25,11 @@ class ManagerTest {
     public void manager_should_park_and_fetch_car()throws Exception{
         //given
         Car car=new Car();
-
+        Manager manager=new Manager();
         //when
+        Ticket ticket=manager.park(car);
+        Car actulCar=manager.fetchCar(ticket);
         //then
+        assertSame(actulCar,car);
     }
 }
