@@ -29,7 +29,9 @@ import java.util.Map;
             return capacity-ticketCarMap.size();
         }
 
-
+        public double getPositionRate(){
+        return ticketCarMap.size()/capacity;
+        }
 
         public boolean isTicketIncluded(Ticket ticket){
             Car car=ticketCarMap.get(ticket);
