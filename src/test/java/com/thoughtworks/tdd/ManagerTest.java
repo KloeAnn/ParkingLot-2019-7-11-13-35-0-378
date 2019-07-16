@@ -1,8 +1,19 @@
 package com.thoughtworks.tdd;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.function.Executable;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.System.console;
+import static java.lang.System.out;
+import static net.bytebuddy.matcher.ElementMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 class ManagerTest {
     @Test
@@ -15,8 +26,8 @@ class ManagerTest {
         manager.addParkingBoyToList(parkingBoy1);
         manager.addParkingBoyToList(parkingBoy2);
         //when
-        Ticket ticket=manager.specifyParkingBoyPark(parkingBoy1,car);
-        Car actulCar=manager.specifyParkingBoyFetch(parkingBoy1,ticket);
+        Ticket ticket=manager.specifyParkingBoyPark(1,car);
+        Car actulCar=manager.specifyParkingBoyFetch(2,ticket);
         //then
         assertSame(actulCar,car);
     }
@@ -32,4 +43,6 @@ class ManagerTest {
         //then
         assertSame(actulCar,car);
     }
+
+
 }
